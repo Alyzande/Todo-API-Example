@@ -31,7 +31,7 @@ exports.create = function (req, res, next) {
   //   })
   //   .then  ( () => {res.send({result:true})})
   // });
-  const todo = new Todo ({ name: req.body.name})
+  const todo = new Todo ({ name: req.body.name, completed: req.body.completed})
   todo.save()
   .then(() => res.send({ result: true }))
 }
