@@ -66,25 +66,34 @@ exports.delete = function (req, res, next) {
 }
 
 exports.update = function (req, res, next) {
-  const todoitem = todolist.find((todo) => todo.id == req.params.id)
+  // const todoitem = todolist.find((todo) => todo.id == req.params.id)
   if (!req.body.name) {
     return (next(createError(400, "name is required")))
   }
-  client.connect (async (err) => {
-    const findResult = client.db('myFirstDatabase').collection('todos').updateOne(
-      { id: parseInt(req.params.id)},
-      {
-        $set: {
-          name: req.body.name,
-          description: req.body.description
-        }
-      }
-    )
-    .then ((result) => {
-      if(result.matchedCount){
-        return res.send({result:true});
-      }
+  // client.connect (async (err) => {
+  //   const findResult = client.db('myFirstDatabase').collection('todos').updateOne(
+  //     { id: parseInt(req.params.id)},
+  //     {
+  //       $set: {
+  //         name: req.body.name,
+  //         description: req.body.description
+  //       }
+  //     }
+  //   )
+  //   .then ((result) => {
+  //     if(result.matchedCount){
+  //       return res.send({result:true});
+  //     }
+  //     return (next(createError(404, "no todo with that id")))
+  //   })
+  // });
+  Todo.findOne({ _id: ObjectId(req.params.id)})
+  .then((result) => {
+    if (!result) {
       return (next(createError(404, "no todo with that id")))
-    })
-  });
+    }
+    result.name = req.body.name
+    result.completed = req.body.completed
+    result.save().then(() => res.send({ result:true}))
+  })
 }
