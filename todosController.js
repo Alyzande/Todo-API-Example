@@ -1,6 +1,6 @@
 const createError = require('http-errors')
 const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://alyzande:newone@cluster0.khie2.mongodb.net/?retryWrites=true&w=majority";
+const uri = "mongodb+srv://alyzande:password@cluster0.khie2.mongodb.net/?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1});
 
 // let todolist = []
