@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 app.use(express.json());
 app.use(router)
 
-mongoose.connect("mongodb+srv://alyzande2:password2@cluster0.khie2.mongodb.net/?retryWrites=true&w=majority")
+mongoose.connect("mongodb+srv://alyzande2:password2@cluster0.13p85.mongodb.net/?retryWrites=true&w=majority")
 app.listen(port, () => 
 console.log(`Example app listening at http://localhost:${port}`))
 
