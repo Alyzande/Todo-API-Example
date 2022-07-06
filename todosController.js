@@ -48,15 +48,21 @@ exports.show = function(req, res, next) {
 }
 
 exports.delete = function (req, res, next) {
-  client.connect (async (err) => {
-  client.db('myFirstDatabase').collection('todos').deleteOne( { id: parseInt(req.params.id)},)
-  .then ((result) => {
-    if (result.deletedCount) {
-      return res.send({result:true});
-    }
-    return (next(createError(404, "no todo with that id")))
-  })
-});
+  // client.connect (async (err) => {
+  // client.db('myFirstDatabase').collection('todos').deleteOne( { id: parseInt(req.params.id)},)
+  // .then ((result) => {
+  //   if (result.deletedCount) {
+  //     return res.send({result:true});
+  //   }
+  //   return (next(createError(404, "no todo with that id")))
+  // })
+  Todo.deleteOne({ _id: ObjectId(req.params.id)})
+  .then((r) => {
+    if (r.deletedCount) {
+    return res.send({ result: true})
+  }
+  return (next(createError(404, "no todo with that id")))
+})
 }
 
 exports.update = function (req, res, next) {
